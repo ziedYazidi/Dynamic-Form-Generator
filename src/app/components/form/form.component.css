@@ -1,0 +1,12 @@
+b {
+  font-size:20px;
+}
+.add {
+  cursor:pointer;
+}
+textarea {
+  border-radius:5px;
+  min-height:50px;
+  width:100%;
+  max-width:400px;
+}
