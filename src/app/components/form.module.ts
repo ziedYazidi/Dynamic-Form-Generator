@@ -17,7 +17,7 @@ import {DataTablesModule} from 'angular-datatables';
     FormComponent
   ],
 
-  exports: [FormComponent]
+  exports: [FormComponent, FormsModule]
 })
 export class FormGeneratorModule {
   static forRoot(): ModuleWithProviders {

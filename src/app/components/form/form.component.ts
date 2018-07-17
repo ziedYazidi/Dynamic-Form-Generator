@@ -14,10 +14,13 @@ import {decoratorArgument} from 'codelyzer/util/astQuery';
 })
 export class FormComponent {
   @Input() file: string;
-  inputs: Textarea[] = [];
-  form: FormGroup = new FormGroup({});
+  inputs: any[] = [];
+  form: FormGroup = new FormGroup({
+    subForms: new FormArray([])
+  });
   payLoad: any;
   active: boolean = false;
+  Object = Object;
 
   constructor(private jsonService: JsonService, private xmlService: XmlService, private http: HttpClient) {};
 
@@ -25,8 +28,18 @@ export class FormComponent {
   getData(text: string){
     if(text.charAt(0)== '{' || text.charAt(0)== '['){
       this.inputs = this.jsonService.getInputs(text);
-      this.form = this.jsonService.toFormGroup(this.inputs);
+      if(Array.isArray(this.inputs[0])){
+        for(let element of this.inputs){
+          (this.form.get('subForms') as FormArray).push(this.jsonService.toFormGroup(element));
+        }
+      }
+      else {
+        (this.form.get('subForms') as FormArray).push(this.jsonService.toFormGroup(this.inputs));
+      }
+      this.active = true;
+      console.log("inputs", this.form.get('subForms'));
     }
+
     if(text.charAt(0)=='<'){
       this.inputs = this.xmlService.getInputs(text);
       this.form = this.xmlService.toFormGroup(this.inputs);

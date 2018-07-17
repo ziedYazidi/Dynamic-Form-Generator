@@ -14,31 +14,36 @@ export class JsonService {
   constructor(private http: HttpClient) { }
 
   // Create Text Area from File
-  getInputs(data: string): Textarea[] {
-    let inputs: Textarea[] = [];
+  getInputs(data: string): any[] {
+    let inputs: any[] = [];
     this.json = data;
     var obj = JSON.parse(this.json);
-    for(let ind in obj) {
-      if(typeof obj[ind] === 'object' ){
+    if(typeof obj[0] === 'object' ){
+      for(let ind in obj) {
         let object = obj[ind];
+        let tab: Textarea[]= [];
         for(let elem in object){
           let _input: Textarea = {name:elem,value:object[elem]};
-          inputs.push(_input);
+          tab.push(_input);
         }
-      }
-      else{
-        let _input: Textarea = {name:ind,value:obj[ind]};
-        inputs.push(_input);
+        inputs.push(tab)
       }
     }
-    console.log(inputs);
+    else {
+      let tab: Textarea[]= [];
+      for(let elem in obj){
+        let _input: Textarea = {name: elem, value:obj[elem]};
+        tab.push(_input);
+      }
+      inputs.push(tab);
+    }
     return inputs;
 
   }
 
 
 //  Create formGroup from TextAreas
-  toFormGroup(inputs: Textarea[]): FormGroup{
+  toFormGroup(inputs: any[]): FormGroup{
     let group: any = [];
     inputs.forEach(input => {
       group[input.name] = new FormControl(input.value, Validators.required);
