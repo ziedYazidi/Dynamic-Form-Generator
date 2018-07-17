@@ -21,11 +21,11 @@
         <!--</tr>-->
       <!--</thead>-->
       <tbody formArrayName="subForms">
-        <tr *ngFor="let input of this.form.get('subForms').value, let i = index">
+        <tr *ngFor="let input of subForms.value, let i = index">
           <td *ngFor="let colName of Object.keys(input); let j = index;">
             <div class="form-group" [formGroupName]="i">
               <input  [formControlName]="colName" class="form-control" [value]="input[colName]">
-              <div *ngIf="form.get('subForms').touched && form.get('subForms').invalid" class="alert alert-danger">{{colName}} is required</div>
+              <div *ngIf="getFormControl(i)[colName].touched && getFormControl(i)[colName].invalid" class="alert alert-danger">{{colName}} is required</div>
             </div>
           </td>
           <td>

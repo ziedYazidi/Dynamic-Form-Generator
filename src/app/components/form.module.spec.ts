@@ -1,10 +1,10 @@
-import { FormModule } from './form.module';
+import {FormGeneratorModule} from './form.module';
 
 describe('FormModule', () => {
-  let formModule: FormModule;
+  let formModule: FormGeneratorModule;
 
   beforeEach(() => {
-    formModule = new FormModule();
+    formModule = new FormGeneratorModule();
   });
 
   it('should create an instance', () => {

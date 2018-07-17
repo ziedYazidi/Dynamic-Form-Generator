@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Textarea} from '../../models/textarea';
-import {FormArray, FormGroup} from '@angular/forms';
+import {AbstractControl, Form, FormArray, FormGroup} from '@angular/forms';
 import {JsonService} from '../../services/json.service';
 import {XmlService} from '../../services/xml.service';
 import {HttpClient} from '@angular/common/http';
@@ -24,6 +24,14 @@ export class FormComponent {
 
   constructor(private jsonService: JsonService, private xmlService: XmlService, private http: HttpClient) {};
 
+  get subForms(){
+    return this.form.get("subForms");
+  }
+
+  getFormControl(i: number){
+    return ((this.form.get("subForms") as FormArray).controls[i] as FormGroup).controls;
+  }
+
 
   getData(text: string){
     if(text.charAt(0)== '{' || text.charAt(0)== '['){
@@ -38,6 +46,7 @@ export class FormComponent {
       }
       this.active = true;
       console.log("inputs", this.form.get('subForms'));
+      console.log("FORM", this.form);
     }
 
     if(text.charAt(0)=='<'){
