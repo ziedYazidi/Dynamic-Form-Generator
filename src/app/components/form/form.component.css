@@ -6,7 +6,35 @@ b {
 }
 textarea {
   border-radius:5px;
-  min-height:50px;
+  min-height:300px;
   width:100%;
   max-width:400px;
+  margin: auto;
+  margin-top: 10px;
+}
+label{
+  margin: auto;
+  margin-top: 10px;
+}
+
+button{
+  margin: auto;
+  margin-top: 10px;
+}
+
+pre{
+  margin: auto;
+  margin-top: 10px;
+}
+
+#genCode{
+  margin: auto;
+}
+
+#col{
+  margin-top: 20px;
+}
+.form-control.ng-touched.ng-invalid{
+  border: 2px solid red;
+
 }

@@ -1,46 +1,63 @@
-<div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 text-center">
+<div class="container">
   <div class="row">
-    <label for="jsonText">Insert Json Text</label>
+    <div class="col-sm-12">
+      <div class="row">
+        <label for="jsonText">Insert Json Text</label>
+      </div>
+      <div class="row">
+        <textarea id="jsonText" #jsonText></textarea>
+      </div>
+      <div class="row">
+        <button class="btn btn-success" (click)="getData(jsonText.value)">Generate Form</button>
+      </div>
+    </div>
   </div>
 
-  <div class="row">
-    <textarea id="jsonText" #jsonText></textarea>
-  </div>
+  <br>
 
-  <div class="row">
-    <button class="btn btn-success" (click)="getData(jsonText.value)">Generate Form</button>
-  </div>
 
-  <form [formGroup]="form" (ngSubmit)="onSubmit(this.form.value)">
-
-    <table datatable class="row-border hover"  >
-      <!--<thead>-->
-        <!--<tr *ngFor="let input of this.form.get('subForms').value">-->
-          <!--<th *ngFor="let colName of Object.keys(input)"> {{colName}}</th>-->
-          <!--<th *ngIf="active">Generate</th>-->
-        <!--</tr>-->
-      <!--</thead>-->
-      <tbody formArrayName="subForms">
-        <tr *ngFor="let input of subForms.value, let i = index">
-          <td *ngFor="let colName of Object.keys(input); let j = index;">
-            <div class="form-group" [formGroupName]="i">
-              <input  [formControlName]="colName" class="form-control" [value]="input[colName]">
-              <div *ngIf="getFormControl(i)[colName].touched && getFormControl(i)[colName].invalid" class="alert alert-danger">{{colName}} is required</div>
-            </div>
+  <form [formGroup]="form">
+  <table datatable class="row-border hover" *ngIf="active" >
+    <thead>
+      <tr>
+        <th *ngFor="let colName of getHeaders();"> {{colName}}</th>
+        <th *ngIf="active">Generate</th>
+      </tr>
+    </thead>
+    <tbody formArrayName="subForms">
+      <tr *ngFor="let input of subForms.value; let i = index;"  class="form-group" [formGroupName]="i">
+          <td  *ngFor="let colName of Object.keys(input); let j = index "  >
+            <!--{{input[colName][Object.keys(input[colName])[0]]}}-->
+            <input   [formControlName]="colName" [class]="input[colName][Object.keys(input[colName])[1]]" [value]="input[colName][Object.keys(input[colName])[0]]"  >
+            <!--<div *ngIf="getFormControl(i)[colName].touched && getFormControl(i)[colName].invalid" class="alert alert-danger">-->
+              <!--<div *ngIf="getFormControl(i)[colName].errors.required">{{colName}} is required</div>-->
+              <!--<div *ngIf="getFormControl(i)[colName].errors.minlength">minlength is false</div>-->
+              <!--<div *ngIf="getFormControl(i)[colName].errors.email">email is invalid </div>-->
+            <!--</div>-->
           </td>
-          <td>
-            <div *ngIf="active">
-              <button class="btn btn-primary" type="submit">Generate code</button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+        <td>
+          <div>
+            <!--[disabled]="getFormGroup(i).invalid"-->
+            <button class="btn btn-primary"  (click)="generateCode(i)">Generate code</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+
+  </table>
   </form>
 
-  <div *ngIf="payLoad">
-    <strong>Genrated code</strong>
-    <pre><code>{{payLoad}}</code></pre>
+
+
+  <div class="row">
+    <div id="col" class="col-sm-12" *ngIf="payLoad">
+      <div class="row">
+        <strong id="genCode">Genrated code</strong>
+      </div>
+      <div class="row">
+        <pre><code>{{payLoad}}</code></pre>
+      </div>
+    </div>
   </div>
 </div>
 

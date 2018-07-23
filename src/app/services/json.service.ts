@@ -3,8 +3,9 @@ import {Observable} from 'rxjs';
 import {Textarea} from '../models/textarea';
 import {HttpClient} from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {isObject} from 'util';
+import {InputValidators} from '../components/form/input.validators';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,7 @@ export class JsonService {
       for(let ind in obj) {
         let object = obj[ind];
         let tab: Textarea[]= [];
+        console.log("OBJECT", object);
         for(let elem in object){
           let _input: Textarea = {name:elem,value:object[elem]};
           tab.push(_input);
@@ -46,7 +48,7 @@ export class JsonService {
   toFormGroup(inputs: any[]): FormGroup{
     let group: any = [];
     inputs.forEach(input => {
-      group[input.name] = new FormControl(input.value, Validators.required);
+      group[input.name] = new FormControl(input.value, InputValidators.validate(input.value.option));
     });
     return new FormGroup(group);
   }

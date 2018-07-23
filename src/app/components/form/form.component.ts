@@ -6,6 +6,7 @@ import {XmlService} from '../../services/xml.service';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {decoratorArgument} from 'codelyzer/util/astQuery';
+import {el} from '@angular/platform-browser/testing/src/browser_util';
 
 @Component({
   selector: 'app-form',
@@ -32,6 +33,28 @@ export class FormComponent {
     return ((this.form.get("subForms") as FormArray).controls[i] as FormGroup).controls;
   }
 
+  getFormGroup(i: number){
+    return ((this.form.get("subForms") as FormArray).controls[i] as FormGroup);
+  }
+
+  getHeaders(): any[]{
+    var headers: any[] =[];
+    for(let colName in Object.keys(this.form.get('subForms').value[0][0])){
+      headers.push(Object.keys(this.form.get('subForms').value[0][colName])[0]);
+    }
+    return headers;
+  }
+
+  // getInputs():
+  getOutputData(objIndex): any[]{
+    let tab: string []= [];
+    var i= 0;
+    while (i < Object.keys(this.getFormControl(objIndex)).length){
+      tab[Object.keys(this.getFormControl(objIndex)[i].value)[0]] = this.getFormControl(objIndex)[i].value[Object.keys(this.getFormControl(objIndex)[i].value)[0]];
+      i++;
+    }
+    return tab;
+  }
 
   getData(text: string){
     if(text.charAt(0)== '{' || text.charAt(0)== '['){
@@ -44,34 +67,40 @@ export class FormComponent {
       else {
         (this.form.get('subForms') as FormArray).push(this.jsonService.toFormGroup(this.inputs));
       }
-      this.active = true;
-      console.log("inputs", this.form.get('subForms'));
-      console.log("FORM", this.form);
     }
 
     if(text.charAt(0)=='<'){
       this.inputs = this.xmlService.getInputs(text);
-      this.form = this.xmlService.toFormGroup(this.inputs);
+      if(Array.isArray(this.inputs[0])){
+        for(let element of this.inputs){
+          (this.form.get('subForms') as FormArray).push(this.xmlService.toFormGroup(element));
+        }
+      }
+      else {
+        (this.form.get('subForms') as FormArray).push(this.xmlService.toFormGroup(this.inputs));
+      }
     }
+    console.log(this.getFormControl(0)[0]);
+    console.log(this.getFormControl(0)[1]);
     this.active = true;
   }
 
-  onSubmit(text: any): void {
-    var html = "<form [formGroup]="+"form"+" (ngSubmit)="+"onSubmit()"+"> <br>";
-
+  generateCode(i: any): void {
+    var text = this.getOutputData(i);
+    var html = '<form [formGroup]="form" (ngSubmit)="onSubmit()">' + "\n";
     for(let ind in text) {
       html = html +
-        "<div class="+"form-group"+">" +
-        "   <label [attr.for]="+ind+">"+ind+"</label>" +
-        "   <input id="+ind+" type=text"+" class=form-control>"+text[ind] +
-        "</div>"
+      '<div class="form-group">' + '\n'+
+      '   <label for='+ind+'>'+ind+'</label>' + '\n'+
+      '   <input id='+ind+' type="text"'+' class="form-control" ' +  + ' >'+text[ind] + '\n'+
+      '</div>' +'\n'
+
     }
 
-    html = html + "</form>";
-    this.payLoad = JSON.stringify(html, null, 2);
+    html = html + '<div *ngIf="active">\n' +
+      '   <button class="btn btn-primary" type="submit" >Submit</button>\n' +
+      '</div>' + '\n' +
+      '</form>';
+    this.payLoad = html;
   }
-
-
-
-
 }
