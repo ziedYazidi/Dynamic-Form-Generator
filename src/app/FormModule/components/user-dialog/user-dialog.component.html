@@ -1,0 +1,34 @@
+<h1 mat-dialog-title>
+    <span *ngIf="!user.id">Ajout</span>
+    <span *ngIf="user.id">Modification</span> d'un utilisateur</h1>
+<div mat-dialog-content>
+
+    <form [formGroup]="form" class="user-form">
+
+        <mat-form-field class="w-100">
+            <input matInput placeholder="Nom" formControlName="nom">
+            <mat-error *ngIf="form.controls.nom.errors?.required">Nom est obligatoire</mat-error>
+
+
+        </mat-form-field>
+        <mat-form-field class="w-100">
+            <input matInput placeholder="Prénom" formControlName="prenom">
+            <mat-error *ngIf="form.controls.prenom.errors?.required">Prenom est obligatoire</mat-error>
+
+        </mat-form-field>
+        <mat-form-field class="w-100">
+            <input matInput placeholder="E-mail" formControlName="email">
+            <mat-error *ngIf="form.controls.email.errors?.required">Email est obligatoire</mat-error>
+            <mat-error *ngIf="form.controls.email.errors?.pattern">Mail non valide</mat-error>
+
+        </mat-form-field>
+
+    </form>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-raised-button color="primary" (click)="save()" [disabled]="!form.valid">
+        <span *ngIf="!user.id">Ajouter</span>
+        <span *ngIf="user.id">Modifier</span>
+    </button>
+    <button mat-raised-button color="warn" (click)="close()">Annuler</button>
+</div>

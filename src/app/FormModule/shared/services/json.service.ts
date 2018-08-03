@@ -1,18 +1,32 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
-import {Textarea} from '../models/textarea';
+import {Field} from '../models/field';
 import {HttpClient} from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import {FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {isObject} from 'util';
-import {InputValidators} from '../components/form/input.validators';
+import {InputValidators} from '../validators/input.validators';
+import {environment} from '../../../../environments/environment';
+import {User} from '../models/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class JsonService {
   json: any;
-  constructor(private http: HttpClient) { }
+  private host: string;
+  constructor(private http: HttpClient) {
+    this.host = environment.host;
+  }
+
+
+  getUsers(){
+    return this.http.get(this.host + "/users")
+  }
+
+  addUser(user){
+    return this.http.post(this.host + "/users/", user);
+  }
 
   // Create Text Area from File
   getInputs(data: string): any[] {
@@ -22,19 +36,18 @@ export class JsonService {
     if(typeof obj[0] === 'object' ){
       for(let ind in obj) {
         let object = obj[ind];
-        let tab: Textarea[]= [];
-        console.log("OBJECT", object);
+        let tab: Field[]= [];
         for(let elem in object){
-          let _input: Textarea = {name:elem,value:object[elem]};
+          let _input: Field = {key:object[elem].key, value:object[elem].value, class:object[elem].class, option:object[elem].option};
           tab.push(_input);
         }
         inputs.push(tab)
       }
     }
     else {
-      let tab: Textarea[]= [];
+      let tab: Field[]= [];
       for(let elem in obj){
-        let _input: Textarea = {name: elem, value:obj[elem]};
+        let _input: Field = {key:obj[elem].key, value:obj[elem].value, class:obj[elem].class, option:obj[elem].option};
         tab.push(_input);
       }
       inputs.push(tab);
@@ -48,7 +61,8 @@ export class JsonService {
   toFormGroup(inputs: any[]): FormGroup{
     let group: any = [];
     inputs.forEach(input => {
-      group[input.name] = new FormControl(input.value, InputValidators.validate(input.value.option));
+      console.log("OPTION", input.option);
+      group[input.key] = new FormControl(input.value, InputValidators.validate(input.option));
     });
     return new FormGroup(group);
   }

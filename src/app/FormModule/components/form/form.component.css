@@ -1,0 +1,33 @@
+b {
+  font-size:20px;
+}
+.add {
+  cursor:pointer;
+}
+textarea {
+  border-radius:5px;
+  min-height:300px;
+  width:100%;
+  max-width:400px;
+  margin: auto;
+  margin-top: 10px;
+}
+label{
+  margin: auto;
+  margin-top: 10px;
+}
+
+button{
+  margin: auto;
+  margin-top: 10px;
+}
+#or{
+  display: flex;
+  align-items: center;
+}
+ #getData{
+   margin-top: 50%;
+ }
+#addUser{
+  margin-top: 50%;
+}

@@ -2,8 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { FormComponent } from './components/form/form.component';
-import {FormGeneratorModule} from './components/form.module';
+import { FormComponent } from './FormModule/components/form/form.component';
+import {FormGeneratorModule} from './FormModule/form.module';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -11,7 +12,13 @@ import {FormGeneratorModule} from './components/form.module';
   ],
   imports: [
     BrowserModule,
-    FormGeneratorModule.forRoot()
+    FormGeneratorModule,
+    RouterModule.forRoot([
+      {
+        path:'',
+        component:FormComponent
+      }
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent]
