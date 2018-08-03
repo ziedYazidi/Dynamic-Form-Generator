@@ -23,7 +23,8 @@ import {UserDialogComponent} from './components/user-dialog/user-dialog.componen
     MatSelectModule,
     MatInputModule,
     MatDialogModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
   declarations: [
     FormComponent,
