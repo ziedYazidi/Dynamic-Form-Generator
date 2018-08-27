@@ -1,16 +1,42 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<h1>Welcome to app!</h1>
-<nav class="navbar navbar-dark bg-primary">
-  <a class="navbar-brand" href="#">Dynamic Form Generator</a>
-  <a class="navbar-brand" href="#">JSON Generator</a>
-  <a class="navbar-brand" href="#">WS Form Generator</a>
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
 
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-</nav>
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
 
-<app-form></app-form>
+  <!-- Material Dashboard CSS -->
+  <link rel="stylesheet" href="/assets/css/material-dashboard.css">
+
+</head>
+<body>
+<app-navbar></app-navbar>
+<router-outlet></router-outlet>
+
+<!--   Core JS Files   -->
+<script src="assets/js/core/jquery.min.js"></script>
+<script src="assets/js/core/popper.min.js"></script>
+<script src="assets/js/bootstrap-material-design.js"></script>
+
+<!--  Notifications Plugin, full documentation here: http://bootstrap-notify.remabledesigns.com/    -->
+<script src="assets/js/plugins/bootstrap-notify.js"></script>
+
+<!--  Charts Plugin, full documentation here: https://gionkunz.github.io/chartist-js/ -->
+<script src="assets/js/core/chartist.min.js"></script>
+
+<!-- Plugin for Scrollbar documentation here: https://github.com/utatti/perfect-scrollbar -->
+<script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+
+<!-- Demo init -->
+<script src="assets/js/plugins/demo.js"></script>
+
+<!-- Material Dashboard Core initialisations of plugins and Bootstrap Material Design Library -->
+<script src="assets/js/material-dashboard.js?v=2.1.0"></script>
+</body>
+</html>

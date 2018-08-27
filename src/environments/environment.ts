@@ -4,8 +4,9 @@
 
 export const environment = {
   production: false,
-  host: "http://localhost:8080/dauphine/api"
-
+  host: "http://localhost:8080/dauphine/api",
+  // kongGateway: "http://192.168.99.100:32638"
+  kongGateway: "http://localhost:8080"
 };
 
 /*

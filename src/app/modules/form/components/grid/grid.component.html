@@ -1,0 +1,32 @@
+<form [formGroup]="form">
+  <table datatable class="row-border hover" *ngIf="active" >
+    <thead>
+    <tr>
+      <th *ngFor="let colName of getHeaders();"> {{colName}}</th>
+      <th *ngIf="active">Generate</th>
+    </tr>
+    </thead>
+    <tbody formArrayName="subForms">
+    <tr *ngFor="let input of subForms.value; let i = index;"  class="form-group" [formGroupName]="i">
+      <td  *ngFor="let colName of  Object.keys(input); let j = index "  >
+        <!--<input type="text" [value]=inputs[i][j].value>-->
+
+        {{inputs[i][j].value}}
+        <!--<input   [formControlName]="colName" [class]="inputs[i][j].class" [value]="inputs[i][j].value"  >-->
+        <!--<div *ngIf="getFormControl(i)[colName].touched && getFormControl(i)[colName].invalid" class="alert alert-danger">-->
+        <!--<div *ngIf="getFormControl(i)[colName].errors.required">{{colName}} is required</div>-->
+        <!--<div *ngIf="getFormControl(i)[colName].errors.minlength">minlength is false</div>-->
+        <!--<div *ngIf="getFormControl(i)[colName].errors.email">email is invalid </div>-->
+        <!--</div>-->
+      </td>
+      <td>
+        <div>
+          <!--[disabled]="getFormGroup(i).invalid"-->
+          <button class="btn btn-primary" (click)="generateCode(i)" >Generate code</button>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+
+  </table>
+</form>

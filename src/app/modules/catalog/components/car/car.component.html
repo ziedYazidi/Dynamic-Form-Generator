@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card card-stats">
+      <div class="card-header card-header-warning card-header-icon">
+        <div class="card-icon">
+          <img class="card-img" [src]="car.carImage" alt="Card image">
+        </div>
+        <h1 class="card-title">{{car.carName}}</h1>
+        <h3 class="card-title">{{car.carPrice}}
+          <small>Dinars</small>
+        </h3>
+        <h3 class="card-title">{{car.carNbrDoors}} Doors</h3>
+        <h3 class="card-title">{{car.carNbrSeats}} Seats</h3>
+        <h3 class="card-title" *ngIf="car.containsAC == true">Air conditioning</h3>
+        <h3 class="card-title" *ngIf="car.containsAC == false">No Air conditioning</h3>
+        <h3 class="card-title" *ngIf="car.isManual == true">Manual</h3>
+        <h3 class="card-title" *ngIf="car.isManual == false">Automatic</h3>
+
+      </div>
+      <div class="card-footer">
+        <div class="col-sm-10"></div>
+        <div class="col-sm-2">
+          <button type="button" class="btn btn-warning btn-round" [routerLink]="['/contract', car.carId]">Reserve Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

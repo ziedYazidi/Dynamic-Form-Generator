@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="col-sm-12">
+        <div class="row">
+          <label for="jsonText">Insert Json Text</label>
+        </div>
+        <div class="row">
+          <textarea id="jsonText" #jsonText></textarea>
+        </div>
+        <div class="row">
+          <button class="btn btn-success" (click)="getData(jsonText.value)">Generate Form</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br>
+
+
+
+  <app-grid [form] = "form" [active]="active" [inputs]="inputs" (outputEmitter)= "generateCode($event)" ></app-grid>
+  <app-generated-code [html]="html" [payLoad]="payLoad"></app-generated-code>
+
+</div>
+
+
+
+
+
+
